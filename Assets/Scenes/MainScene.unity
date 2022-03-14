@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 158396623}
   - component: {fileID: 158396624}
+  - component: {fileID: 158396625}
   m_Layer: 0
   m_Name: Shark
   m_TagString: Untagged
@@ -167,6 +168,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 479ae8f4d5e8248418c3c24124d36f88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 299783288}
+  _rigidbody2D: {fileID: 0}
+--- !u!50 &158396625
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158396622}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &299783288
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,7 +203,7 @@ GameObject:
   - component: {fileID: 299783289}
   m_Layer: 0
   m_Name: Target
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
