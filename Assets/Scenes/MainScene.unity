@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 299783288}
   _rigidbody2D: {fileID: 0}
+  powerOfShark: 5.24
 --- !u!50 &158396625
 Rigidbody2D:
   serializedVersion: 4
