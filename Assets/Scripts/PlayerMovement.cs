@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 touchPos;
 
     private Quaternion rotZ;
-    [SerializeField] private float speedMod = 0.1f;
+    [SerializeField] private float speedMod = 0.4f;
 
     [SerializeField] private GameObject lightObj = null;
 
@@ -47,22 +47,24 @@ public class PlayerMovement : MonoBehaviour
 
             UIController.instance.usingCharge = true;
 
-            if (touch.phase == TouchPhase.Moved)
-            {
-                if (Input.GetTouch(0).position.y > Screen.height / 2)
-                {
-                    rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
-                    transform.rotation = rotZ * transform.rotation;
-                }
-                else
-                {
-                    rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
-                    transform.rotation = rotZ * transform.rotation;
-                    Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
-                }
+            //if (touch.phase == TouchPhase.Moved)
+            //{
+            //    if (Input.GetTouch(0).position.y > Screen.height / 2)
+            //    {
+            //        rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+            //        transform.rotation = rotZ * transform.rotation;
+            //    }
+            //    else
+            //    {
+            //        rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
+            //        transform.rotation = rotZ * transform.rotation;
+            //        Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+            //    }
 
-                
-            }
+
+            //}
+
+           
         }
         else
         {
@@ -77,5 +79,22 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         transform.position += transform.up * playerSpeed  * Time.deltaTime;
+
+        if (touch.phase == TouchPhase.Moved)
+        {
+
+            if (Input.GetTouch(0).position.y > Screen.height / 2)
+            {
+                rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+                transform.rotation = rotZ * transform.rotation;
+            }
+            else
+            {
+                rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
+                transform.rotation = rotZ * transform.rotation;
+                Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+            }
+
+        }
     }
 }
