@@ -36,6 +36,12 @@ public class UIController : MonoBehaviour
         if(chargeValue <= 0)
         {
             PlayerMovement.instance.emptyCharge = true;
+            emptyImage.SetActive(true);
+        }
+        else
+        {
+            PlayerMovement.instance.emptyCharge = false;
+            emptyImage.SetActive(false);
         }
     }
 }

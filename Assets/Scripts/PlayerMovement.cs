@@ -8,14 +8,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 touchPos;
 
-    private Quaternion rotY;
-    private float speedMod = 0.3f;
+    private Quaternion rotZ;
+    private float speedMod = 0.1f;
 
     [SerializeField] private GameObject lightObj = null;
 
     public bool emptyCharge = false;
 
     public static PlayerMovement instance;
+
+    // Player movements
+    [SerializeField] private float playerSpeed;
+
 
     private void Awake()
     {
@@ -33,21 +37,45 @@ public class PlayerMovement : MonoBehaviour
             if (!emptyCharge)
             {
                 lightObj.SetActive(true);
+                
             }
             else
             {
                 lightObj.SetActive(false);
+                
             }
 
-            if(touch.phase == TouchPhase.Moved)
+            UIController.instance.usingCharge = true;
+
+            if (touch.phase == TouchPhase.Moved)
             {
-                rotY = Quaternion.Euler(0f, touch.deltaPosition.x * speedMod, 0f);
-                transform.rotation = rotY * transform.rotation;
+                if (Input.GetTouch(0).position.y > Screen.height / 2)
+                {
+                    rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+                    transform.rotation = rotZ * transform.rotation;
+                }
+                else
+                {
+                    rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
+                    transform.rotation = rotZ * transform.rotation;
+                    Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+                }
+
+                
             }
         }
         else
         {
             lightObj.SetActive(false);
+            UIController.instance.usingCharge = false;
         }
+
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        transform.position += transform.up * playerSpeed  * Time.deltaTime;
     }
 }
