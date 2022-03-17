@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 touchPos;
 
     private Quaternion rotZ;
-    private float speedMod = 0.1f;
+    [SerializeField] private float speedMod = 0.1f;
 
     [SerializeField] private GameObject lightObj = null;
 
