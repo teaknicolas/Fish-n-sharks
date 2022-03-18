@@ -80,21 +80,44 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position += transform.up * playerSpeed  * Time.deltaTime;
 
-        if (touch.phase == TouchPhase.Moved)
-        {
+        //if (touch.phase == TouchPhase.Moved)
+        //{
 
-            if (Input.GetTouch(0).position.y > Screen.height / 2)
-            {
-                rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
-                transform.rotation = rotZ * transform.rotation;
-            }
-            else
-            {
-                rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
-                transform.rotation = rotZ * transform.rotation;
-                Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
-            }
+        //    if (Input.GetTouch(0).position.y > Screen.height / 2)
+        //    {
+        //        rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+        //        transform.rotation = rotZ * transform.rotation;
+        //    }
+        //    else
+        //    {
+        //        rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
+        //        transform.rotation = rotZ * transform.rotation;
+        //        Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+        //    }
 
-        }
+        //}
+
+
+        //if (touch.phase == TouchPhase.Moved)
+        //{
+
+        //    //if (Input.GetTouch(0).position.y > Screen.height / 2)
+        //    //{
+        //    //    rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+        //    //    transform.rotation = rotZ * transform.rotation;
+        //    //}
+        //    //else
+        //    //{
+        //    //    rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
+        //    //    transform.rotation = rotZ * transform.rotation;
+        //    //    Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+        //    //}
+
+        //    Vector2 directionTouch;
+        //    directionTouch = Input.GetTouch(0).position - (Vector2)transform.position;
+        //    float angle = Mathf.Atan2(directionTouch.y, directionTouch.x) * Mathf.Rad2Deg;
+        //    Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speedMod * Time.deltaTime); 
+        //}
     }
 }
