@@ -21,6 +21,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float playerSpeed;
 
 
+
+    // Joystick system
+
+    [SerializeField] private Joystick joystick;
     private void Awake()
     {
         instance = this;
@@ -80,22 +84,24 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position += transform.up * playerSpeed  * Time.deltaTime;
 
-        //if (touch.phase == TouchPhase.Moved)
-        //{
+        if (touch.phase == TouchPhase.Moved)
+        {
 
-        //    if (Input.GetTouch(0).position.y > Screen.height / 2)
-        //    {
-        //        rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
-        //        transform.rotation = rotZ * transform.rotation;
-        //    }
-        //    else
-        //    {
-        //        rotZ = Quaternion.Euler(0f, 0f, touch.deltaPosition.x * speedMod);
-        //        transform.rotation = rotZ * transform.rotation;
-        //        Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
-        //    }
+            //if (Input.GetTouch(0).position.y > Screen.height / 2)
+            //{
+            //    rotZ = Quaternion.Euler(0f, 0f, -touch.deltaPosition.x * speedMod);
+            //    transform.rotation = rotZ * transform.rotation;
+            //}
+            //else
+            //{
+            //    rotZ = Quaternion.Euler(0f, 0f,  joystick.Horizontal * speedMod);
+            //    transform.rotation = rotZ * transform.rotation;
+            //    Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
+            //}
+            rotZ = Quaternion.Euler(0f, 0f, (joystick.Horizontal + joystick.Vertical) * speedMod);
+            transform.rotation =  transform.rotation * rotZ;
 
-        //}
+        }
 
 
         //if (touch.phase == TouchPhase.Moved)
@@ -119,5 +125,8 @@ public class PlayerMovement : MonoBehaviour
         //    Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speedMod * Time.deltaTime); 
         //}
+
+
+
     }
 }
