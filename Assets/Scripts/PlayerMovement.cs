@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(CircleCollider2D))]
 public class PlayerMovement : MonoBehaviour
 {
     private Touch touch;
@@ -25,12 +25,24 @@ public class PlayerMovement : MonoBehaviour
     // Joystick system
 
     [SerializeField] private Joystick joystick;
+
+    Vector2 movement_Indicator;
+
+    private CircleCollider2D circle_collider;
+
+    Vector2 direction;
+
+    public GameObject indicator;
+
     private void Awake()
     {
         instance = this;
     }
 
-
+    private void Start()
+    {
+        circle_collider = GetComponent<CircleCollider2D>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -77,7 +89,30 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
+        movement_Indicator.x = this.transform.position.x + joystick.Horizontal * circle_collider.radius; // movement of the joystick
 
+        movement_Indicator.y = this.transform.position.y + joystick.Vertical * circle_collider.radius;
+
+        if (joystick.Horizontal != 0 || joystick.Vertical != 0)
+        {
+
+
+            indicator.SetActive(true);
+            indicator.transform.position = movement_Indicator;
+
+
+            direction = movement_Indicator - (Vector2)this.transform.position;
+            direction = direction.normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            //set the angle into a quaternion + sprite offset depending on initial sprite facing direction
+            Quaternion rotation = Quaternion.Euler(new Vector3(0, 0, angle - 90));
+            //Roatate current game object to face the target using a slerp function which adds some smoothing to the move
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speedMod );
+        }
+        else
+        {
+            indicator.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -98,8 +133,8 @@ public class PlayerMovement : MonoBehaviour
             //    transform.rotation = rotZ * transform.rotation;
             //    Debug.Log(Input.GetTouch(0).position.y + " hieght : " + Screen.height / 2);
             //}
-            rotZ = Quaternion.Euler(0f, 0f, (joystick.Horizontal + joystick.Vertical) * speedMod);
-            transform.rotation =  transform.rotation * rotZ;
+            //rotZ = Quaternion.Euler(0f, 0f, (joystick.Horizontal + joystick.Vertical) * speedMod);
+            //transform.rotation =  transform.rotation * rotZ;
 
         }
 
@@ -126,7 +161,6 @@ public class PlayerMovement : MonoBehaviour
         //    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speedMod * Time.deltaTime); 
         //}
 
-
-
+        
     }
 }
