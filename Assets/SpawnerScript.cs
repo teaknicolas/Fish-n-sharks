@@ -10,7 +10,12 @@ public class SpawnerScript : MonoBehaviour
 
     public float cycleTimer = 3.0f;
     float currentTime;
-    
+
+
+    private bool spawningObject = false;
+
+    public static SpawnerScript instance;
+
     // Start is called before the first frame update
     void Start()
     {
