@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
 
 public class Shark : MonoBehaviour
@@ -14,6 +15,7 @@ public class Shark : MonoBehaviour
     {
         //_player = _player.GetComponent<GameObject>();
         _rigidbody2D = this.GetComponent<Rigidbody2D>();
+        _player = GameObject.Find("Player");
     }
 
     // Start is called before the first frame update
@@ -21,16 +23,17 @@ public class Shark : MonoBehaviour
     {
 
         Vector2 dir = _player.transform.position - this.transform.position;
-        if(_player.tag == "Player")
+        if (_player.tag == "Player")
         {
-            _rigidbody2D.AddForce(dir * powerOfShark) ;
+            _rigidbody2D.AddForce(dir * powerOfShark);
         }
-       
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        //Vector2 dir = _player.transform.position - this.transform.position;
+        //this.transform.position = this.transform.position * dir * Time.deltaTime * powerOfShark;
     }
 }
