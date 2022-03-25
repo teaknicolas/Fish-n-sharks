@@ -6,6 +6,9 @@ public class SpawnerScript : MonoBehaviour
 {
     //<
 
+
+
+
     [System.Serializable]
     public struct Spawnable
     {
@@ -44,6 +47,11 @@ public class SpawnerScript : MonoBehaviour
 
     public static SpawnerScript instance;
 
+
+    [SerializeField]
+
+    private Camera mainCamera;
+
     private void Awake()
     {
         instance = this;
@@ -74,6 +82,14 @@ public class SpawnerScript : MonoBehaviour
     //    }
     //}
 
+    private IEnumerator SpawnObject(string type, float time)
+    {
+        yield return new WaitForSeconds(time);
+        ObjectPooler.instance.SpawnFromPool(type, new Vector3(Random.Range(0, 20  ), 0f,0f), Quaternion.identity );  // selon la taille des bordures de notre jeu
+        spawningObject = false;
+        GameController.EnnemyCount++;
+    }
+
     void Update()
     {
         if (!spawningObject && GameController.EnnemyCount < spawnSettings[0].maxObjects)
@@ -88,6 +104,8 @@ public class SpawnerScript : MonoBehaviour
                 chosenIndex++;
                 cumulativeWeight += ennemySpawnables[chosenIndex].weight;
             }
+
+            StartCoroutine(SpawnObject(ennemySpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
         }
     }
 }
