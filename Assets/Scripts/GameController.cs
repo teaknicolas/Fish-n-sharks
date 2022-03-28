@@ -29,5 +29,7 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         difficultyMultiplier = 1 + (distance / difficultyOffset);
+
+        Debug.Log("Ennemy counts : " + GameController.EnnemyCount);
     }
 }
