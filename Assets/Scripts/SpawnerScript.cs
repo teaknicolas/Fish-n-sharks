@@ -52,6 +52,10 @@ public class SpawnerScript : MonoBehaviour
 
     private Camera mainCamera;
 
+    [SerializeField]
+
+    private GameObject spawnerPos;
+
     private void Awake()
     {
         instance = this;
@@ -85,7 +89,7 @@ public class SpawnerScript : MonoBehaviour
     private IEnumerator SpawnObject(string type, float time)
     {
         yield return new WaitForSeconds(time);
-        ObjectPooler.instance.SpawnFromPool(type, new Vector3(Random.Range(0, 20  ), 0f,0f), Quaternion.identity );  // selon la taille des bordures de notre jeu
+        ObjectPooler.instance.SpawnFromPool(type, spawnerPos.transform.position, Quaternion.identity );  // selon la taille des bordures de notre jeu
         spawningObject = false;
         GameController.EnnemyCount++;
     }
