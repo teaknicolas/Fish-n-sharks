@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
+
 using UnityEngine;
 
 
@@ -11,7 +11,7 @@ public class Shark : MonoBehaviour
     public Transform _player;
     private Rigidbody2D rb;
 
-
+    public GameObject explosionEffect;
 
     [SerializeField]
     private float speed = 1f;
@@ -55,4 +55,18 @@ public class Shark : MonoBehaviour
         rb.angularVelocity = rotateSpeed *  - rotateAmount;
         rb.velocity = transform.up * speed; 
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var explosion =  Instantiate(explosionEffect, transform.position, transform.rotation);
+            GameController.instance.GameOver();
+            this.gameObject.SetActive(false);
+            Destroy(explosion, 3f);
+        }
+    }
+   
+
+
 }
