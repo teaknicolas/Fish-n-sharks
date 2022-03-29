@@ -11,6 +11,8 @@ public class GameController : MonoBehaviour
 
     private static int ennemyCount = 0;
 
+
+
     public static float Distance
     {
         get => distance; set => distance = value;
@@ -31,5 +33,10 @@ public class GameController : MonoBehaviour
         difficultyMultiplier = 1 + (distance / difficultyOffset);
 
         Debug.Log("Ennemy counts : " + GameController.EnnemyCount);
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("GAME OVER!");
     }
 }
