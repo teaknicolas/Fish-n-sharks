@@ -33,8 +33,8 @@ public class SpawnerScript : MonoBehaviour
 
     public GameObject Shark;
 
-    public float cycleTimer = 3.0f;
-    float currentTime;
+    //public float cycleTimer = 3.0f;
+    //float currentTime;
 
 
     private bool spawningObject = false;
@@ -67,7 +67,7 @@ public class SpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentTime = cycleTimer;
+        //currentTime = cycleTimer;
     }
 
     // Update is called once per frame
@@ -108,8 +108,11 @@ public class SpawnerScript : MonoBehaviour
                 chosenIndex++;
                 cumulativeWeight += ennemySpawnables[chosenIndex].weight;
             }
-
+            Debug.Log("Cumulitive weight " + cumulativeWeight);
             StartCoroutine(SpawnObject(ennemySpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
         }
+
+        Debug.Log("Time spawn " + spawnSettings[0].maxWait / GameController.DifficultyMultiplier);
+        
     }
 }
