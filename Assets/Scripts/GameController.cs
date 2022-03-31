@@ -30,7 +30,8 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        difficultyMultiplier = 1 + (distance / difficultyOffset);
+        difficultyMultiplier = 1 + (Time.realtimeSinceStartup/ difficultyOffset);
+        Debug.Log("Difficulty Mult : " + difficultyMultiplier);
 
         Debug.Log("Ennemy counts : " + GameController.EnnemyCount);
     }

@@ -156,7 +156,7 @@ MonoBehaviour:
   pools:
   - type: enemy
     prefab: {fileID: 1990667841}
-    size: 3
+    size: 5
 --- !u!4 &82982345
 Transform:
   m_ObjectHideFlags: 0
@@ -184,16 +184,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Shark: {fileID: 5716236211364956896, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
-  cycleTimer: 10
   ennemySpawnables:
   - type: enemy
     weight: 1
-  - type: 
-    weight: 0
   spawnSettings:
   - type: enemy
-    minWait: 0.5
-    maxWait: 3
+    minWait: 5
+    maxWait: 15
     maxObjects: 50
   mainCamera: {fileID: 0}
   spawnerPos: {fileID: 553435606}
@@ -796,7 +793,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 553435606}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -30.2, z: 0}
+  m_LocalPosition: {x: 0, y: -56.7, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 299783290}
@@ -1746,7 +1743,7 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1814,6 +1811,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5716236211364956896, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
+      propertyPath: m_TagString
+      value: Shark
+      objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1872,12 +1873,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: speed
-      value: 8
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 299783290}
+    - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
+      propertyPath: cannibalEffect
+      value: 
+      objectReference: {fileID: 1000011396044746, guid: 96b2ec0239d11fa4b9792311efceb8ed, type: 3}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: explosionEffect
       value: 
