@@ -82,10 +82,12 @@ public class Shark : MonoBehaviour
         // Functionality of sharks cancelling each other
         if (collision.gameObject.CompareTag("Shark"))
         {
+            GameController.Points += 1;
             var cannibal = Instantiate(cannibalEffect, transform.position, transform.rotation);
             GameController.instance.GameOver();
             this.gameObject.SetActive(false);
             Destroy(cannibal, 1f);
+            
         }
     }
 
@@ -95,7 +97,7 @@ public class Shark : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         float speedtemp = speed;
-        if(speed < 20f)
+        if(speed < 13f)
         {
             speed = speed + GameController.DifficultyMultiplier;
         }

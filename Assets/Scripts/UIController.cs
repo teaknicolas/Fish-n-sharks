@@ -7,15 +7,19 @@ using System;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private Image chargeImage = null;
-    [SerializeField] private GameObject emptyImage = null;
-    [SerializeField] private float timeOffset = 2.0f;
+    //[SerializeField] private Image chargeImage = null;
+    //[SerializeField] private GameObject emptyImage = null;
+    //[SerializeField] private float timeOffset = 2.0f;
     [SerializeField] private float timeMod = 4.0f;
+    //[SerializeField] private TextMeshProUGUI distanceText = null;
+
     [SerializeField] private TextMeshProUGUI distanceText = null;
+    [SerializeField] private TextMeshProUGUI pointsText = null;
+    [SerializeField] private TextMeshProUGUI pointsBonusText = null;
 
-    private float chargeValue = 1f;
+    //private float chargeValue = 1f;
 
-    public bool usingCharge;
+    //public bool usingCharge;
 
     public static UIController instance;
 
@@ -29,27 +33,28 @@ public class UIController : MonoBehaviour
 
         GameController.Distance += Time.deltaTime * timeMod;
         distanceText.text = String.Format("{0:0m}", GameController.Distance);
+        pointsText.text = "" + GameController.Points;
 
 
-        if (usingCharge)
-        {
-            chargeValue = Mathf.Clamp01(chargeValue - (timeOffset * Time.deltaTime));
-            chargeImage.fillAmount = chargeValue;
-        }
-        else
-        {
-            chargeValue = Mathf.Clamp01(chargeValue + (timeOffset * Time.deltaTime));
-            chargeImage.fillAmount = chargeValue;
-        }
-        if(chargeValue <= 0)
-        {
-            PlayerMovement.instance.emptyCharge = true;
-            emptyImage.SetActive(true);
-        }
-        else
-        {
-            PlayerMovement.instance.emptyCharge = false;
-            emptyImage.SetActive(false);
-        }
+        //if (usingCharge)
+        //{
+        //    chargeValue = Mathf.Clamp01(chargeValue - (timeOffset * Time.deltaTime));
+        //    chargeImage.fillAmount = chargeValue;
+        //}
+        //else
+        //{
+        //    chargeValue = Mathf.Clamp01(chargeValue + (timeOffset * Time.deltaTime));
+        //    chargeImage.fillAmount = chargeValue;
+        //}
+        //if(chargeValue <= 0)
+        //{
+        //    PlayerMovement.instance.emptyCharge = true;
+        //    emptyImage.SetActive(true);
+        //}
+        //else
+        //{
+        //    PlayerMovement.instance.emptyCharge = false;
+        //    emptyImage.SetActive(false);
+        //}
     }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     private static float distance = 0;
+    private static int points = 0;
+    private static int pointsBonus = 0;
+
     private static float difficultyMultiplier = 1;
 
     private static float difficultyOffset = 100f;
@@ -17,9 +20,14 @@ public class GameController : MonoBehaviour
     {
         get => distance; set => distance = value;
     }
+
+    public static int Points { get => points; set => points = value; }
+
+    public static int PointsBonus { get => pointsBonus; set => pointsBonus = value; }
     public static float DifficultyMultiplier { get => difficultyMultiplier; set => difficultyMultiplier = value; }
     public static float DifficultyOffset { get => difficultyOffset; set => difficultyOffset = value; }
     public static int EnnemyCount { get => ennemyCount; set => ennemyCount = value; }
+    
 
     public static GameController instance;
 

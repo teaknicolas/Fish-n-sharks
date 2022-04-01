@@ -47,7 +47,7 @@ public class ObjectPooler : MonoBehaviour
         }
     }
 
-    public GameObject SpawnFromPool(string type, Vector2 posistion, Quaternion rotation)
+    public GameObject SpawnFromPool(string type, Vector2 position, Quaternion rotation)
     {
         if (!poolDictionary.ContainsKey(type))
         {
@@ -57,7 +57,7 @@ public class ObjectPooler : MonoBehaviour
 
         objectToSpawn = poolDictionary[type].Dequeue();
         objectToSpawn.SetActive(true);
-        objectToSpawn.transform.position = posistion;
+        objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
 
         poolDictionary[type].Enqueue(objectToSpawn);
