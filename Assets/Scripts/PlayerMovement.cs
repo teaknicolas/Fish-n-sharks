@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Quaternion rotZ;
     [SerializeField] private float speedMod = 0.4f;
 
-    [SerializeField] private GameObject lightObj = null;
+    //[SerializeField] private GameObject lightObj = null;
 
     public bool emptyCharge = false;
 
@@ -50,18 +50,18 @@ public class PlayerMovement : MonoBehaviour
         if(Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
-            if (!emptyCharge)
-            {
-                lightObj.SetActive(true);
+            //if (!emptyCharge)
+            //{
+            //    lightObj.SetActive(true);
                 
-            }
-            else
-            {
-                lightObj.SetActive(false);
+            //}
+            //else
+            //{
+            //    lightObj.SetActive(false);
                 
-            }
+            //}
 
-            UIController.instance.usingCharge = true;
+            //UIController.instance.usingCharge = true;
 
             //if (touch.phase == TouchPhase.Moved)
             //{
@@ -82,11 +82,11 @@ public class PlayerMovement : MonoBehaviour
 
            
         }
-        else
-        {
-            lightObj.SetActive(false);
-            UIController.instance.usingCharge = false;
-        }
+        //else
+        //{
+        //    lightObj.SetActive(false);
+        //    UIController.instance.usingCharge = false;
+        //}
 
 
         movement_Indicator.x = this.transform.position.x + joystick.Horizontal * circle_collider.radius; // movement of the joystick
