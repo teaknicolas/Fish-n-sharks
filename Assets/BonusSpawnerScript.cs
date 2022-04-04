@@ -25,15 +25,18 @@ public class BonusSpawnerScript : MonoBehaviour
 
     }
 
-    public GameObject BonusGameobject;
+    
 
     private bool spawningObject = false;
 
-    public List<Spawnable> ennemySpawnables = new List<Spawnable>();
+    public List<Spawnable> bonusSpawnables = new List<Spawnable>();
 
     public List<SpawnSettings> spawnSettings = new List<SpawnSettings>();
 
     public static BonusSpawnerScript instance;
+
+    [SerializeField] private Collider2D spawningZoneCollider;
+    [SerializeField] private Transform player;
 
     [SerializeField]
 
@@ -55,9 +58,14 @@ public class BonusSpawnerScript : MonoBehaviour
     private IEnumerator SpawnObject(string type, float time)
     {
         yield return new WaitForSeconds(time);
-        ObjectPooler.instance.SpawnBonusFromPool(type,new Vector2(mainCamera.transform.position.x, mainCamera.transform.position.y), Quaternion.identity);  // selon la taille des bordures de notre jeu
+        ObjectPooler.instance.SpawnBonusFromPool(type, (Vector2)player.position + new Vector2(
+            Random.Range( - spawningZoneCollider.bounds.size.x/2, 
+            spawningZoneCollider.bounds.size.x / 2),
+            Random.Range(-spawningZoneCollider.bounds.size.y / 2,
+            spawningZoneCollider.bounds.size.y / 2)), 
+            Quaternion.identity);  // selon la taille des bordures de notre jeu
         spawningObject = false;
-        GameController.EnnemyCount++;
+        GameController.BonusCount++;
     }
     void Update()
     {
@@ -68,13 +76,13 @@ public class BonusSpawnerScript : MonoBehaviour
             int chosenIndex = 0;
             
 
-            while ( chosenIndex < ennemySpawnables.Count - 1)
+            while ( chosenIndex < bonusSpawnables.Count - 1)
             {
                 chosenIndex++;
                 
             }
             
-            StartCoroutine(SpawnObject(ennemySpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
+            StartCoroutine(SpawnObject(bonusSpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
         }
 
 
