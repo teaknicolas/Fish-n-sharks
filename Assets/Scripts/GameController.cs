@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour
 
     private static int ennemyCount = 0;
 
-
+    private static int bonusCount = 0;
 
     public static float Distance
     {
@@ -23,11 +23,11 @@ public class GameController : MonoBehaviour
 
     public static int Points { get => points; set => points = value; }
 
-    public static int PointsBonus { get => pointsBonus; set => pointsBonus = value; }
+   
     public static float DifficultyMultiplier { get => difficultyMultiplier; set => difficultyMultiplier = value; }
     public static float DifficultyOffset { get => difficultyOffset; set => difficultyOffset = value; }
     public static int EnnemyCount { get => ennemyCount; set => ennemyCount = value; }
-    
+    public static int BonusCount { get => bonusCount; set => bonusCount = value; }
 
     public static GameController instance;
 

@@ -34,7 +34,7 @@ public class UIController : MonoBehaviour
         GameController.Distance += Time.deltaTime * timeMod;
         distanceText.text = String.Format("{0:0m}", GameController.Distance);
         pointsText.text = "" + GameController.Points;
-
+        pointsBonusText.text = "" + GameController.BonusCount;
 
         //if (usingCharge)
         //{
