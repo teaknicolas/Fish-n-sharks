@@ -112,7 +112,7 @@ public class SpawnerScript : MonoBehaviour
             StartCoroutine(SpawnObject(ennemySpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
         }
 
-        Debug.Log("Time spawn " + spawnSettings[0].maxWait / GameController.DifficultyMultiplier);
+        //Debug.Log("Time spawn " + spawnSettings[0].maxWait / GameController.DifficultyMultiplier);
         
     }
 }

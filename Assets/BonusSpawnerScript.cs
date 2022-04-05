@@ -66,6 +66,17 @@ public class BonusSpawnerScript : MonoBehaviour
             Quaternion.identity);  // selon la taille des bordures de notre jeu
         spawningObject = false;
         GameController.BonusCount++;
+        
+        //if(GameController.BonusCount >= spawnSettings[0].maxObjects &&  )
+        //{
+        //    StartCoroutine(ReloadObject(5f));
+        //}
+    }
+
+    private IEnumerator ReloadObject( float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameController.BonusCount = 0;
     }
     void Update()
     {
@@ -84,7 +95,7 @@ public class BonusSpawnerScript : MonoBehaviour
             
             StartCoroutine(SpawnObject(bonusSpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
         }
-
+        Debug.Log("Bonus COunt + Max objects :" + GameController.BonusCount + " /  " + spawnSettings[0].maxObjects);
 
 
     }

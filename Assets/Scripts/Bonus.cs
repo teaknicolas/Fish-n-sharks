@@ -31,12 +31,15 @@ public class Bonus : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
-            GameController.BonusCount += 1;
+            GameController.Bonuspoints ++;
             //var explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+            //Debug.Log("Points " + GameController.BonusCount);
+           
+            PlayerMovement.instance.PlayerSpeed += 0.5f;
 
-            PlayerMovement.instance.PlayerSpeed += 0.1f;
+            GameController.BonusCount--;
             this.gameObject.SetActive(false);
             //Destroy(explosion, 3f);
         }
