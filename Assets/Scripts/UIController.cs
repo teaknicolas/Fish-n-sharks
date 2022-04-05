@@ -17,6 +17,11 @@ public class UIController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pointsText = null;
     [SerializeField] private TextMeshProUGUI pointsBonusText = null;
 
+
+    // Start Game over , Restart
+    [SerializeField] private GameObject startPanel = null;
+
+    [SerializeField] private GameObject restartPanel = null;
     //private float chargeValue = 1f;
 
     //public bool usingCharge;
@@ -57,5 +62,10 @@ public class UIController : MonoBehaviour
         //    PlayerMovement.instance.emptyCharge = false;
         //    emptyImage.SetActive(false);
         //}
+    }
+
+    public void StartGame()
+    {
+        startPanel.SetActive(false);
     }
 }
