@@ -58,7 +58,7 @@ public class BonusSpawnerScript : MonoBehaviour
     private IEnumerator SpawnObject(string type, float time)
     {
         yield return new WaitForSeconds(time);
-        ObjectPooler.instance.SpawnBonusFromPool(type, (Vector2)player.position + new Vector2(
+        var instance = ObjectPooler.instance.SpawnBonusFromPool(type, (Vector2)player.position + new Vector2(
             Random.Range( - spawningZoneCollider.bounds.size.x/2, 
             spawningZoneCollider.bounds.size.x / 2),
             Random.Range(-spawningZoneCollider.bounds.size.y / 2,
@@ -66,7 +66,14 @@ public class BonusSpawnerScript : MonoBehaviour
             Quaternion.identity);  // selon la taille des bordures de notre jeu
         spawningObject = false;
         GameController.BonusCount++;
-        
+
+        //yield return new WaitForSeconds(10f);
+        //if (instance != null) // regenere le bonus ailleurs au bou de x secondes
+        //{
+        //    //GameController.BonusCount--;
+        //    //instance.SetActive(false);
+            
+        //}
         //if(GameController.BonusCount >= spawnSettings[0].maxObjects &&  )
         //{
         //    StartCoroutine(ReloadObject(5f));
