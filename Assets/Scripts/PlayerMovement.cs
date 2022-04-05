@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject indicator;
 
+    public float PlayerSpeed { get => playerSpeed; set => playerSpeed = value; }
+
     private void Awake()
     {
         instance = this;
@@ -117,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += transform.up * playerSpeed  * Time.deltaTime;
+        transform.position += transform.up * PlayerSpeed  * Time.deltaTime;
 
         if (touch.phase == TouchPhase.Moved)
         {

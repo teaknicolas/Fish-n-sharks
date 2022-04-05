@@ -64,5 +64,33 @@ public class ObjectPooler : MonoBehaviour
 
         return objectToSpawn;
 
+
+
     }
+
+    public GameObject SpawnBonusFromPool(string type, Vector2 position, Quaternion rotation) // Gestion des bonus
+    {
+        if (!poolDictionary.ContainsKey(type) )
+        {
+            Debug.LogWarning("Pool with type : " + type + " doesn't exist.");
+            return null;
+        }
+
+        
+        objectToSpawn = poolDictionary[type].Dequeue();
+        objectToSpawn.SetActive(true);
+        objectToSpawn.transform.position = position;
+        objectToSpawn.transform.rotation = rotation;
+
+        poolDictionary[type].Enqueue(objectToSpawn);
+
+            
+       
+        return objectToSpawn;
+
+
+
+    }
+
+
 }
