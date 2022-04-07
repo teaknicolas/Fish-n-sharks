@@ -2,17 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+using System;
 
 public class UIController : MonoBehaviour
 {
-    [SerializeField] private Image chargeImage = null;
-    [SerializeField] private GameObject emptyImage = null;
-    [SerializeField] private float timeOffset = 2.0f;
+    //[SerializeField] private Image chargeImage = null;
+    //[SerializeField] private GameObject emptyImage = null;
+    //[SerializeField] private float timeOffset = 2.0f;
     [SerializeField] private float timeMod = 4.0f;
+    //[SerializeField] private TextMeshProUGUI distanceText = null;
 
-    private float chargeValue = 1f;
+    [SerializeField] private TextMeshProUGUI distanceText = null;
+    [SerializeField] private TextMeshProUGUI pointsText = null;
+    [SerializeField] private TextMeshProUGUI pointsBonusText = null;
 
-    public bool usingCharge;
+
+    // Start Game over , Restart
+    [SerializeField] private GameObject startPanel = null;
+
+    [SerializeField] private GameObject restartPanel = null;
+    //private float chargeValue = 1f;
+
+    //public bool usingCharge;
 
     public static UIController instance;
 
@@ -23,25 +35,64 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (usingCharge)
+        if (!GameController.GamePaused)
         {
-            chargeValue = Mathf.Clamp01(chargeValue - (timeOffset * Time.deltaTime));
-            chargeImage.fillAmount = chargeValue;
+            GameController.Distance += Time.deltaTime * timeMod;
+            distanceText.text = String.Format("{0:0m}", GameController.Distance);
+            pointsText.text = "" + GameController.Points;
+            pointsBonusText.text = "" + GameController.Bonuspoints;
+            //Debug.Log("BONUS " + GameController.BonusCount);
+
+            //if (usingCharge)
+            //{
+            //    chargeValue = Mathf.Clamp01(chargeValue - (timeOffset * Time.deltaTime));
+            //    chargeImage.fillAmount = chargeValue;
+            //}
+            //else
+            //{
+            //    chargeValue = Mathf.Clamp01(chargeValue + (timeOffset * Time.deltaTime));
+            //    chargeImage.fillAmount = chargeValue;
+            //}
+            //if(chargeValue <= 0)
+            //{
+            //    PlayerMovement.instance.emptyCharge = true;
+            //    emptyImage.SetActive(true);
+            //}
+            //else
+            //{
+            //    PlayerMovement.instance.emptyCharge = false;
+            //    emptyImage.SetActive(false);
+            //}
         }
-        else
+
+    }
+
+    public void StartGame()
+    {
+        startPanel.SetActive(false);
+        GameController.GamePaused = false;
+
+    }
+
+    public void RestartGame()
+    {
+        restartPanel.SetActive(false);
+        GameController.GamePaused = false;
+    }
+
+    public void EndGame()
+    {
+        restartPanel.SetActive(true);
+        GameController.GamePaused = true;
+        GameController.Distance = 0;
+        GameController.Points = 0;
+        GameController.EnnemyCount = 0;
+        GameController.BonusCount = 0;
+        GameController.Bonuspoints = 0;
+        foreach(GameObject enemy in GameObject.FindGameObjectsWithTag("Shark"))
         {
-            chargeValue = Mathf.Clamp01(chargeValue + (timeOffset * Time.deltaTime));
-            chargeImage.fillAmount = chargeValue;
-        }
-        if(chargeValue <= 0)
-        {
-            PlayerMovement.instance.emptyCharge = true;
-            emptyImage.SetActive(true);
-        }
-        else
-        {
-            PlayerMovement.instance.emptyCharge = false;
-            emptyImage.SetActive(false);
+            enemy.GetComponent<Shark>().Reset();
+            enemy.SetActive(false);
         }
     }
 }
