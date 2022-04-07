@@ -90,7 +90,7 @@ public class Shark : MonoBehaviour
         {
             GameController.Points += 1;
             var cannibal = Instantiate(cannibalEffect, transform.position, transform.rotation);
-            GameController.instance.GameOver();
+            
             Reset();
             this.gameObject.SetActive(false);
             Destroy(cannibal, 1f);
