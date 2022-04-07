@@ -87,7 +87,7 @@ public class BonusSpawnerScript : MonoBehaviour
     }
     void Update()
     {
-        if (!spawningObject && GameController.BonusCount < spawnSettings[0].maxObjects)
+        if (!spawningObject && GameController.BonusCount < spawnSettings[0].maxObjects && !GameController.GamePaused)
         {
             spawningObject = true;
             

@@ -51,19 +51,24 @@ public class Shark : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Vector2 direction = (Vector2)_player.position - rb.position;
-
-        direction.Normalize();
-
-        float rotateAmount = Vector3.Cross(direction, transform.up).z;
-
-        rb.angularVelocity = rotateSpeed *  - rotateAmount;
-        rb.velocity = transform.up * speed;
-
-        if (isSpeeding == false)
+        if (!GameController.GamePaused)
         {
-            StartCoroutine(AugmentSpeed(0.5f));
+            Vector2 direction = (Vector2)_player.position - rb.position;
+
+            direction.Normalize();
+
+            float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+            rb.angularVelocity = rotateSpeed * -rotateAmount;
+            rb.velocity = transform.up * speed;
+
+            if (isSpeeding == false)
+            {
+                StartCoroutine(AugmentSpeed(0.5f));
+            }
         }
+        else { }
+        
         
         
         
@@ -75,6 +80,7 @@ public class Shark : MonoBehaviour
         {
             var explosion =  Instantiate(explosionEffect, transform.position, transform.rotation);
             GameController.instance.GameOver();
+            Reset();
             this.gameObject.SetActive(false);
             Destroy(explosion, 3f);
         }
@@ -84,7 +90,8 @@ public class Shark : MonoBehaviour
         {
             GameController.Points += 1;
             var cannibal = Instantiate(cannibalEffect, transform.position, transform.rotation);
-            GameController.instance.GameOver();
+            
+            Reset();
             this.gameObject.SetActive(false);
             Destroy(cannibal, 1f);
             
@@ -104,6 +111,11 @@ public class Shark : MonoBehaviour
        
         //Debug.Log("Speed of ennemy" + speed);
         isSpeeding = false;
+    }
+
+    public void Reset()
+    {
+        speed = 2f;
     }
 
 
