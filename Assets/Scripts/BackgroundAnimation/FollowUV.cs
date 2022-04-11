@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MeshRenderer))]
-public class ScrollUV : MonoBehaviour
+public class FollowUV : MonoBehaviour
 {
-    
+
 
     // Update is called once per frame
     void Update()
@@ -17,8 +17,8 @@ public class ScrollUV : MonoBehaviour
 
         Vector2 offset = mat.mainTextureOffset;
 
-        offset.x += Time.deltaTime;
-
+        offset.x =  transform.position.x / transform.localScale.x;
+        offset.y =  transform.position.y / transform.localScale.y;
         mat.mainTextureOffset = offset;
     }
 }
