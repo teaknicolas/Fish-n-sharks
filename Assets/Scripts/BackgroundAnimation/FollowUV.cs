@@ -6,7 +6,7 @@ using UnityEngine;
 public class FollowUV : MonoBehaviour
 {
 
-    [SerializeField] private float parralax = 3f;
+    [SerializeField] private float parralax = 1f;
     // Update is called once per frame
     void Update()
     {
@@ -17,8 +17,8 @@ public class FollowUV : MonoBehaviour
 
         Vector2 offset = mat.mainTextureOffset;
 
-        offset.x =  transform.position.x / transform.localScale.x / parralax;
-        offset.y =  transform.position.y / transform.localScale.y / parralax;
+        offset.x =  transform.position.x / transform.localScale.x ;
+        offset.y =  transform.position.y / transform.localScale.y ;
         mat.mainTextureOffset = offset;
     }
 }
