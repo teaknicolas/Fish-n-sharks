@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
     private static float distance = 0;
     private static int points = 0;
+    private static int highScore = 0;
     private static int bonuspoints = 0;
 
     private static float difficultyMultiplier = 1;
@@ -32,13 +33,14 @@ public class GameController : MonoBehaviour
     public static int EnnemyCount { get => ennemyCount; set => ennemyCount = value; }
     public static int BonusCount { get => bonusCount; set => bonusCount = value; }
     public static bool GamePaused { get => gamePaused; set => gamePaused = value; }
+    public static int HighScore { get => highScore; set => highScore = value; }
 
     public static GameController instance;
 
     private void Awake()
     {
         instance = this;
-        
+     
     }
 
     private void Update()
