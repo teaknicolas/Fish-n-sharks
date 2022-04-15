@@ -35,6 +35,7 @@ public class UIController : MonoBehaviour
     {
         instance = this;
         highScoreText.text = "Best: " +PlayerPrefs.GetInt("maxScore", 0);
+        //pointsText.text = "0";
     }
     // Update is called once per frame
     void Update()
@@ -80,22 +81,26 @@ public class UIController : MonoBehaviour
 
     public void RestartGame()
     {
-        int currentScore = int.Parse(pointsText.text);
-        //int maxScore = PlayerPrefs.GetInt("maxScore", 0);
-        
-        //if(currentScore > maxScore)
-        //{
-        //    PlayerPrefs.SetInt("maxScore", currentScore);
-        //}
+        //int currentScore = int.Parse(pointsText.text);
+       
 
-      
+
         restartPanel.SetActive(false);
         GameController.GamePaused = false;
     }
 
     public void EndGame()
     {
-        highScoreText.text = "Score: " + pointsText.text;
+        int currentScore = (int)GameController.Distance;
+        int maxScore = PlayerPrefs.GetInt("maxScore", 0);
+
+        if (currentScore > maxScore)
+        {
+            
+            highScoreText.text = "Best: " + distanceText.text;
+            PlayerPrefs.SetInt("maxScore", currentScore);
+        }
+      
 
         restartPanel.SetActive(true);
         GameController.GamePaused = true;
