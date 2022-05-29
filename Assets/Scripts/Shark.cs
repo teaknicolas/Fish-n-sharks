@@ -51,6 +51,29 @@ public class Shark : MonoBehaviour
 
     private void FixedUpdate()
     {
+        // Gestion de trajectoire requin 0.1.0
+
+        //if (!GameController.GamePaused)  
+        //{
+        //    Vector2 direction = (Vector2)_player.position - rb.position;
+
+        //    direction.Normalize();
+
+        //    float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+        //    rb.angularVelocity = rotateSpeed * -rotateAmount;
+        //    rb.velocity = transform.up * speed;
+
+        //    if (isSpeeding == false)
+        //    {
+        //        StartCoroutine(AugmentSpeed(0.5f));
+        //    }
+        //}
+        //else { }
+
+        // Gestion de trajectoire requin 0.2.0
+
+
         if (!GameController.GamePaused)
         {
             Vector2 direction = (Vector2)_player.position - rb.position;
@@ -67,11 +90,7 @@ public class Shark : MonoBehaviour
                 StartCoroutine(AugmentSpeed(0.5f));
             }
         }
-        else { }
-        
-        
-        
-        
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
