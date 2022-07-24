@@ -14,7 +14,10 @@ public class UIController : MonoBehaviour
     //[SerializeField] private TextMeshProUGUI distanceText = null;
 
     [SerializeField] private TextMeshProUGUI distanceText = null;
-    [SerializeField] private TextMeshProUGUI pointsText = null;
+    [SerializeField] public TextMeshProUGUI pointsText = null;
+
+    [SerializeField] private TextMeshProUGUI highScoreText = null;
+
     [SerializeField] private TextMeshProUGUI pointsBonusText = null;
 
 
@@ -30,7 +33,9 @@ public class UIController : MonoBehaviour
 
     void Awake()
     {
-        instance = this; 
+        instance = this;
+        highScoreText.text = "Best: " +PlayerPrefs.GetInt("maxScore", 0);
+        //pointsText.text = "0";
     }
     // Update is called once per frame
     void Update()
@@ -39,7 +44,7 @@ public class UIController : MonoBehaviour
         {
             GameController.Distance += Time.deltaTime * timeMod;
             distanceText.text = String.Format("{0:0m}", GameController.Distance);
-            pointsText.text = "" + GameController.Points;
+            pointsText.text = "Score : " + GameController.Points;
             pointsBonusText.text = "" + GameController.Bonuspoints;
             //Debug.Log("BONUS " + GameController.BonusCount);
 
@@ -76,12 +81,27 @@ public class UIController : MonoBehaviour
 
     public void RestartGame()
     {
+        //int currentScore = int.Parse(pointsText.text);
+       
+
+
         restartPanel.SetActive(false);
         GameController.GamePaused = false;
     }
 
     public void EndGame()
     {
+        int currentScore = (int)GameController.Distance;
+        int maxScore = PlayerPrefs.GetInt("maxScore", 0);
+
+        if (currentScore > maxScore)
+        {
+            
+            highScoreText.text = "Best: " + distanceText.text;
+            PlayerPrefs.SetInt("maxScore", currentScore);
+        }
+      
+
         restartPanel.SetActive(true);
         GameController.GamePaused = true;
         GameController.Distance = 0;

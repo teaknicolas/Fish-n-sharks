@@ -14,10 +14,19 @@ public class Shark : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject cannibalEffect; // for shar k killing each other
     [SerializeField]
+    private float maxSpeed = 9f;
+    [SerializeField]
+    private float minSpeed = 2f;
+    [SerializeField]
+    private float slowingSpeed = 5f;
+    [SerializeField]
     private float speed = 1f;
 
     [SerializeField]
     private float rotateSpeed = 200f;
+
+    [SerializeField]
+    private float radius = 2f;
 
     [SerializeField]
     private bool isSpeeding = false;
@@ -51,27 +60,50 @@ public class Shark : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!GameController.GamePaused)
-        {
-            Vector2 direction = (Vector2)_player.position - rb.position;
+        // Gestion de trajectoire requin 0.1.0
 
-            direction.Normalize();
+        //if (!GameController.GamePaused)  
+        //{
+        //    Vector2 direction = (Vector2)_player.position - rb.position;
 
-            float rotateAmount = Vector3.Cross(direction, transform.up).z;
+        //    direction.Normalize();
 
-            rb.angularVelocity = rotateSpeed * -rotateAmount;
-            rb.velocity = transform.up * speed;
+        //    float rotateAmount = Vector3.Cross(direction, transform.up).z;
 
-            if (isSpeeding == false)
-            {
-                StartCoroutine(AugmentSpeed(0.5f));
-            }
-        }
-        else { }
-        
-        
-        
-        
+        //    rb.angularVelocity = rotateSpeed * -rotateAmount;
+        //    rb.velocity = transform.up * speed;
+
+        //    if (isSpeeding == false)
+        //    {
+        //        StartCoroutine(AugmentSpeed(0.5f));
+        //    }
+        //}
+        //else { }
+
+        // Gestion de trajectoire requin 0.2.0
+
+
+        //if (!GameController.GamePaused)
+        //{
+        //   // Vector2 direction = (Vector2)_player.position - rb.position;
+
+        //   //// direction.Normalize();  // Pas nécessaire 
+
+        //   // float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+        //   // rb.angularVelocity = rotateSpeed * -rotateAmount;
+        //   // rb.velocity = transform.up * speed;
+
+        //   // if (isSpeeding == false)
+        //   // {
+        //   //     StartCoroutine(AugmentSpeed(0.5f));
+        //   // }
+        //}
+
+
+
+        Arrive();
+
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -98,24 +130,54 @@ public class Shark : MonoBehaviour
         }
     }
 
-    private IEnumerator AugmentSpeed(float time)
-    {
-        isSpeeding = true;
-        yield return new WaitForSeconds(time);
+    //private IEnumerator AugmentSpeed(float time)
+    //{
+    //    isSpeeding = true;
+    //    yield return new WaitForSeconds(time);
 
-        float speedtemp = speed;
-        if(speed < 13f)
-        {
-            speed = speed + GameController.DifficultyMultiplier;
-        }
+    //    float speedtemp = speed;
+    //    if(speed < 13f)
+    //    {
+    //        speed = speed + GameController.DifficultyMultiplier;
+    //    }
        
-        //Debug.Log("Speed of ennemy" + speed);
-        isSpeeding = false;
-    }
+    //    //Debug.Log("Speed of ennemy" + speed);
+    //    isSpeeding = false;
+    //}
 
     public void Reset()
     {
         speed = 2f;
+    }
+
+    public void Arrive() // Implementation of Arrive behviour 
+    {
+        if (!GameController.GamePaused)
+        {
+            Vector2 direction = (Vector2)_player.position - rb.position;
+
+            float distance = Vector2.Distance((Vector2)_player.position, rb.position);
+
+            rb.AddForce(direction);
+
+            float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+            rb.angularVelocity = rotateSpeed * -rotateAmount;
+
+
+            if (distance < radius) // Quand le requin arrive dans le rayon 'radius' du joueur qu'on définie
+            {
+                
+                float desiredSpeed =Mathf.Clamp( maxSpeed * distance, 0, maxSpeed);
+
+                rb.velocity = transform.up * desiredSpeed ;
+                Debug.Log(" CMA BITE ZEAEAZ : " + desiredSpeed + " NON JE RIGOLE :  " + distance + " maxSpeed : " + maxSpeed +" VELOCITY : " + rb.velocity );
+            }
+            else
+            {
+                rb.velocity = transform.up * maxSpeed;
+            }
+        }
     }
 
 

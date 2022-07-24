@@ -128,8 +128,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _rigidbody2D: {fileID: 0}
-  powerOfShark: 28.22
+  explosionEffect: {fileID: 0}
+  cannibalEffect: {fileID: 0}
+  maxSpeed: 10
+  speed: 1
+  rotateSpeed: 150
+  radius: 2
+  isSpeeding: 0
 --- !u!50 &5716236211364956927
 Rigidbody2D:
   serializedVersion: 4
