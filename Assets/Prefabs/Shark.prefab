@@ -130,7 +130,9 @@ MonoBehaviour:
   _player: {fileID: 0}
   explosionEffect: {fileID: 0}
   cannibalEffect: {fileID: 0}
-  maxSpeed: 10
+  maxSpeed: 7
+  minSpeed: 2
+  slowingSpeed: 2
   speed: 1
   rotateSpeed: 150
   radius: 2
