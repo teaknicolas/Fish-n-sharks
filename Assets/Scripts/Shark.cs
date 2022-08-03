@@ -171,7 +171,7 @@ public class Shark : MonoBehaviour
                 float desiredSpeed =Mathf.Clamp( maxSpeed * distance, 0, maxSpeed);
 
                 rb.velocity = transform.up * desiredSpeed ;
-                Debug.Log(" CMA BITE ZEAEAZ : " + desiredSpeed + " NON JE RIGOLE :  " + distance + " maxSpeed : " + maxSpeed +" VELOCITY : " + rb.velocity );
+                //Debug.Log("  : " + desiredSpeed + " NON JE RIGOLE :  " + distance + " maxSpeed : " + maxSpeed +" VELOCITY : " + rb.velocity );
             }
             else
             {

@@ -696,7 +696,7 @@ Transform:
   m_GameObject: {fileID: 299783288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 0.08}
   m_Children:
   - {fileID: 296770549}
   - {fileID: 553435607}
@@ -8999,23 +8999,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.93
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.47
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956897, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9059,7 +9059,11 @@ PrefabInstance:
       objectReference: {fileID: 299783290}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: maxSpeed
-      value: 9
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
+      propertyPath: slowingSpeed
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: cannibalEffect
