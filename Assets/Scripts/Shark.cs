@@ -168,7 +168,7 @@ public class Shark : MonoBehaviour
             if (distance < radius) // Quand le requin arrive dans le rayon 'radius' du joueur qu'on définie
             {
                 
-                float desiredSpeed =Mathf.Clamp( maxSpeed * distance, 0, maxSpeed);
+                float desiredSpeed =Mathf.Clamp(maxSpeed, 0, maxSpeed); //(maxSpeed * distance, 0, maxSpeed)->formule buggé
 
                 rb.velocity = transform.up * desiredSpeed ;
                 //Debug.Log("  : " + desiredSpeed + " NON JE RIGOLE :  " + distance + " maxSpeed : " + maxSpeed +" VELOCITY : " + rb.velocity );
