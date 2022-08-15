@@ -291,7 +291,7 @@ MonoBehaviour:
   pools:
   - type: enemy
     prefab: {fileID: 1990667841}
-    size: 10
+    size: 3
   - type: Bonus
     prefab: {fileID: 362197702}
     size: 3
@@ -9051,6 +9051,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
+      propertyPath: radius
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
@@ -9059,11 +9063,15 @@ PrefabInstance:
       objectReference: {fileID: 299783290}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: maxSpeed
-      value: 6
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
+      propertyPath: minSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: slowingSpeed
-      value: 4
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 5716236211364956926, guid: 3c1f5d5b5bccc444995e307c3fc361b1, type: 3}
       propertyPath: cannibalEffect
