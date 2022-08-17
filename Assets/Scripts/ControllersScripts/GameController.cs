@@ -37,6 +37,17 @@ public class GameController : MonoBehaviour
 
     public static GameController instance;
 
+    
+     
+
+
+    // 0.3.1 Spawning des ennemis, on va annuler le script dans l'Objet ObjectPooler a chaque fois qu'il ya game Over et le réactiver quand on rejoue
+
+    
+
+
+
+
     private void Awake()
     {
         instance = this;
@@ -61,5 +72,6 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("GAME OVER!");
         UIController.instance.EndGame();
+        GameOverController.instance.EndGame();
     }
 }

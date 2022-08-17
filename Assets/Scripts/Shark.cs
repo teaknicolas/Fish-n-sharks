@@ -181,7 +181,7 @@ public class Shark : MonoBehaviour
                 float desiredSpeed =Mathf.Clamp(speed / distance, minSpeed , maxSpeed); //(maxSpeed * distance, 0, maxSpeed)->formule buggé
 
                 rb.velocity = transform.up * desiredSpeed ;
-                Debug.Log("  desiredSpeed : " + desiredSpeed + "velocity " + rb.velocity);
+                //Debug.Log("  desiredSpeed : " + desiredSpeed + "velocity " + rb.velocity);
 
             }
             else
@@ -193,7 +193,7 @@ public class Shark : MonoBehaviour
                 rb.velocity = transform.up * speed;
                 
                 //Debug.Log("OUT   distavce : "  + distance + " maxSpeed : " + maxSpeed + " VELOCITY : " + rb.velocity);
-                Debug.Log("  speed : " + speed + "velocity "  + rb.velocity);
+                //Debug.Log("  speed : " + speed + "velocity "  + rb.velocity);
             }
         }
     }
