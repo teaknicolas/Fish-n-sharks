@@ -87,6 +87,7 @@ public class UIController : MonoBehaviour
 
         restartPanel.SetActive(false);
         GameController.GamePaused = false;
+        GameOverController.instance.Restart();
     }
 
     public void EndGame()
