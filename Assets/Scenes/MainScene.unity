@@ -9022,6 +9022,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1990667842, guid: 59532639f3c3aa247b508909b61377d2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1899600445744982218, guid: 59532639f3c3aa247b508909b61377d2, type: 3}
       propertyPath: _player
       value: 
