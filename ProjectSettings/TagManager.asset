@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Shark
   - Asteroid
+  - WorldBounds
   layers:
   - Default
   - TransparentFX
