@@ -7,8 +7,9 @@ public class Asteroid : MonoBehaviour
 {
     public Transform _player;
     private Rigidbody2D rb;
-
+    public float MinSpeed = 1f;
     public float MaxSpeed = 10f;
+    public float speed;
 
     [SerializeField]
     private float mass;
@@ -19,7 +20,7 @@ public class Asteroid : MonoBehaviour
     public float MaxMass = 10f;
 
     public float MinSize = 1f;
-    public float MaxSize = 10f;
+    public float MaxSize = 5f;
 
     public float MinDensity = 1f;
     public float MaxDensity = 10f;
@@ -27,6 +28,10 @@ public class Asteroid : MonoBehaviour
     public float screenHeight = 200f;
     public float screenWidth = 200f;
     private BoxCollider2D worldBounds; // reference to the world bounds collider
+
+    public float repulsionForce = 10f;
+
+    public GameObject explosionEffect;
 
     private void Awake()
     {
@@ -45,6 +50,9 @@ public class Asteroid : MonoBehaviour
 
         // Generate a random density between MinDensity and MaxDensity
         float density = Random.Range(MinDensity, MaxDensity);
+
+        // Generate a random density between MinDensity and MaxDensity
+         speed = Random.Range(MinSpeed, MaxSpeed);
 
         // Calculate the mass of the asteroid based on its size and density
         if (size > 0 && density > 0)
@@ -80,61 +88,35 @@ public class Asteroid : MonoBehaviour
         velocity = Vector3.ClampMagnitude(velocity, MaxSpeed);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void FixedUpdate()
     {
-        // Get the other asteroid's mass and velocity
-        Asteroid otherAsteroid = collision.gameObject.GetComponent<Asteroid>();
-        if (otherAsteroid != null)
+        // Freeze the z-axis
+        rb.position = new Vector3(rb.position.x, rb.position.y, 0f);
+    }
+
+    
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+         if (collision.gameObject.CompareTag("Asteroid"))
         {
-            float otherMass = otherAsteroid.mass;
-            Vector3 otherVelocity = otherAsteroid.velocity;
-
-            float totalMass = mass + otherMass;
-            Vector3 totalMomentum = mass * velocity + otherMass * otherVelocity;
-
-            // Calculate the velocity of the system after the collision
-            Vector3 newVelocity = totalMomentum / totalMass;
-
-            // Calculate a repulsive force
-            Vector3 direction = transform.position - otherAsteroid.transform.position;
-            float distance = direction.magnitude;
-            float forceMagnitude = Mathf.Max(0f, (1f / distance) - (1f / (MaxSize * 2f)));
-            Vector3 repulsiveForce = direction.normalized * forceMagnitude;
-
-            // Update the velocities of the asteroids
-            velocity = newVelocity + repulsiveForce;
-            otherAsteroid.velocity = newVelocity - repulsiveForce;
-
-            // Randomize the new direction of the asteroids
-            velocity = Random.insideUnitSphere * MaxSpeed;
-            otherAsteroid.velocity = Random.insideUnitSphere * MaxSpeed;
-
-            // Apply different directions of repulsive force based on the relative positions of the colliding asteroids
-            if (direction.x > 0f && direction.y > 0f)
-            {
-                // Top right collision
-                velocity = newVelocity + new Vector3(repulsiveForce.x, -repulsiveForce.y, 0f);
-                otherAsteroid.velocity = newVelocity - new Vector3(-repulsiveForce.x, repulsiveForce.y, 0f);
-            }
-            else if (direction.x < 0f && direction.y > 0f)
-            {
-                // Top left collision
-                velocity = newVelocity + new Vector3(-repulsiveForce.x, -repulsiveForce.y, 0f);
-                otherAsteroid.velocity = newVelocity - new Vector3(repulsiveForce.x, repulsiveForce.y, 0f);
-            }
-            else if (direction.x < 0f && direction.y < 0f)
-            {
-                // Bottom left collision
-                velocity = newVelocity + new Vector3(-repulsiveForce.x, repulsiveForce.y, 0f);
-                otherAsteroid.velocity = newVelocity - new Vector3(repulsiveForce.x, -repulsiveForce.y, 0f);
-            }
-            else if (direction.x > 0f && direction.y < 0f)
-            {
-                // Bottom right collision
-                velocity = newVelocity + new Vector3(repulsiveForce.x, repulsiveForce.y, 0f);
-                otherAsteroid.velocity = newVelocity - new Vector3(-repulsiveForce.x, -repulsiveForce.y, 0f);
-            }
+            Vector2 direction = (collision.transform.position - transform.position).normalized;
+            rb.AddForce(-direction * speed, ForceMode2D.Impulse);
+            Object go =  Instantiate(explosionEffect, transform.position, Quaternion.identity);
+            Destroy(go, 2f);
+            Destroy(gameObject);
         }
+
+        Debug.Log("Collision of " + this.gameObject.name + " and " + collision.gameObject.name);
+        // Get the other asteroid's rigidbody
+        Rigidbody2D otherRb = collision.gameObject.GetComponent<Rigidbody2D>();
+
+        // Calculate the direction from this asteroid to the other asteroid
+        Vector2 repulsionDirection = otherRb.transform.position - rb.transform.position;
+
+        // Apply the repulsion force in the opposite direction
+        otherRb.AddForce(repulsionDirection.normalized * repulsionForce, ForceMode2D.Impulse);
+        rb.AddForce(-repulsionDirection.normalized * repulsionForce, ForceMode2D.Impulse);
     }
     void WrapAround()
     {
