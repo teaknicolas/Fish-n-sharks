@@ -19,15 +19,15 @@ public class Asteroid : MonoBehaviour
     public float MinMass = 1f;
     public float MaxMass = 10f;
 
-    public float MinSize = 1f;
-    public float MaxSize = 5f;
+    public float MinSize = 0.1f;
+    public float MaxSize = 3f;
 
     public float MinDensity = 1f;
     public float MaxDensity = 10f;
 
     public float screenHeight = 200f;
     public float screenWidth = 200f;
-    private BoxCollider2D worldBounds; // reference to the world bounds collider
+   
 
     public float repulsionForce = 10f;
 
@@ -38,8 +38,7 @@ public class Asteroid : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        // get the reference to the world bounds collider
-        worldBounds = GameObject.FindGameObjectWithTag("WorldBounds").GetComponent<BoxCollider2D>();
+       
     }
 
     void Start()
@@ -72,17 +71,34 @@ public class Asteroid : MonoBehaviour
     {
 
 
+      
+
+        _player = GameObject.FindGameObjectWithTag("Player").transform;
+
+        // calculate the direction to the player
+        Vector2 directionToPlayer = _player.position - transform.position;
+
+        // calculate the distance to the player
+        float distanceToPlayer = directionToPlayer.magnitude;
+
+        // check if the asteroid is outside the square zone
+        if (Mathf.Abs(transform.position.x) > screenWidth / 2f ||
+            Mathf.Abs(transform.position.y) > screenHeight / 2f)
+        {
+            // move the asteroid towards the player
+            velocity += directionToPlayer.normalized * speed * Time.deltaTime;
+        }
+        else
+        {
+            // apply a random force to the asteroid to change its direction
+            Vector2 force = Random.onUnitSphere * MaxSpeed / 10f;
+            velocity += force * Time.deltaTime;
+        }
+
         // update the position based on the velocity
         this.transform.position += (Vector3)velocity * Time.deltaTime;
 
-
-        // Wrap around the screen
-        WrapAround();
-
-
-        // apply a random force to the asteroid to change its direction
-        Vector2 force = Random.onUnitSphere * MaxSpeed / 10f;
-        velocity += force * Time.deltaTime;
+     
 
         // clamp the velocity to the maximum speed
         velocity = Vector2.ClampMagnitude(velocity, MaxSpeed);
@@ -103,7 +119,9 @@ public class Asteroid : MonoBehaviour
             
             Object go =  Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Destroy(go, 2f);
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            OnDisable();
+            
         }
 
        
@@ -127,37 +145,45 @@ public class Asteroid : MonoBehaviour
             var explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
             GameController.instance.GameOver();
             //Reset();
+            OnDisable();
             this.gameObject.SetActive(false);
             Destroy(explosion, 3f);
+            
         }
     }
 
-    void WrapAround()
+    void OnDisable()
     {
-        Vector3 position = transform.position;
-        float halfWidth = screenWidth / 2f;
-        float halfHeight = screenHeight / 2f;
-
-        if (position.x < -halfWidth)
-        {
-            position.x = halfWidth;
-        }
-        else if (position.x > halfWidth)
-        {
-            position.x = -halfWidth;
-        }
-
-        if (position.y < -halfHeight)
-        {
-            position.y = halfHeight;
-        }
-        else if (position.y > halfHeight)
-        {
-            position.y = -halfHeight;
-        }
-
-        transform.position = position;
+        AsteroidSpawner asteroidSpawner = FindObjectOfType<AsteroidSpawner>();
+        asteroidSpawner.RemoveAsteroid(this.gameObject);
     }
+
+    //void WrapAround()
+    //{
+    //    Vector3 position = transform.position;
+    //    float halfWidth = screenWidth / 2f;
+    //    float halfHeight = screenHeight / 2f;
+
+    //    if (position.x < -halfWidth)
+    //    {
+    //        position.x = halfWidth;
+    //    }
+    //    else if (position.x > halfWidth)
+    //    {
+    //        position.x = -halfWidth;
+    //    }
+
+    //    if (position.y < -halfHeight)
+    //    {
+    //        position.y = halfHeight;
+    //    }
+    //    else if (position.y > halfHeight)
+    //    {
+    //        position.y = -halfHeight;
+    //    }
+
+    //    transform.position = position;
+    //}
 }
 
 
