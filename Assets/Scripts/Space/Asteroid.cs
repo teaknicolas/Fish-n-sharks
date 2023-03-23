@@ -14,7 +14,7 @@ public class Asteroid : MonoBehaviour
     [SerializeField]
     private float mass;
     [SerializeField]
-    private Vector3 velocity;
+    private Vector2 velocity;
 
     public float MinMass = 1f;
     public float MaxMass = 10f;
@@ -73,7 +73,7 @@ public class Asteroid : MonoBehaviour
 
 
         // update the position based on the velocity
-        this.transform.position += velocity * Time.deltaTime;
+        this.transform.position += (Vector3)velocity * Time.deltaTime;
 
 
         // Wrap around the screen
@@ -81,17 +81,17 @@ public class Asteroid : MonoBehaviour
 
 
         // apply a random force to the asteroid to change its direction
-        Vector3 force = Random.onUnitSphere * MaxSpeed / 10f;
+        Vector2 force = Random.onUnitSphere * MaxSpeed / 10f;
         velocity += force * Time.deltaTime;
 
         // clamp the velocity to the maximum speed
-        velocity = Vector3.ClampMagnitude(velocity, MaxSpeed);
+        velocity = Vector2.ClampMagnitude(velocity, MaxSpeed);
     }
 
     void FixedUpdate()
     {
         // Freeze the z-axis
-        rb.position = new Vector3(rb.position.x, rb.position.y, 0f);
+       // rb.position = new Vector3(rb.position.x, rb.position.y, 0f);
     }
 
     
@@ -100,12 +100,13 @@ public class Asteroid : MonoBehaviour
     {
          if (collision.gameObject.CompareTag("Asteroid"))
         {
-            Vector2 direction = (collision.transform.position - transform.position).normalized;
-            rb.AddForce(-direction * speed, ForceMode2D.Impulse);
+            
             Object go =  Instantiate(explosionEffect, transform.position, Quaternion.identity);
             Destroy(go, 2f);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
+
+       
 
         Debug.Log("Collision of " + this.gameObject.name + " and " + collision.gameObject.name);
         // Get the other asteroid's rigidbody
@@ -118,6 +119,19 @@ public class Asteroid : MonoBehaviour
         otherRb.AddForce(repulsionDirection.normalized * repulsionForce, ForceMode2D.Impulse);
         rb.AddForce(-repulsionDirection.normalized * repulsionForce, ForceMode2D.Impulse);
     }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            var explosion = Instantiate(explosionEffect, transform.position, transform.rotation);
+            GameController.instance.GameOver();
+            //Reset();
+            this.gameObject.SetActive(false);
+            Destroy(explosion, 3f);
+        }
+    }
+
     void WrapAround()
     {
         Vector3 position = transform.position;
