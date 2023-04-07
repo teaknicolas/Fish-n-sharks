@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
 
 
@@ -16,11 +15,15 @@ public class Shark : MonoBehaviour
     [SerializeField]
     private float maxSpeed = 9f;
     [SerializeField]
-    private float minSpeed = 2f;
+
+    private float minSpeed ; // toujours plus rapide que Player
+
     [SerializeField]
     private float slowingSpeed = 5f;
     [SerializeField]
     private float speed = 1f;
+    [SerializeField]
+    private float speedRespawn ;
 
     [SerializeField]
     private float rotateSpeed = 200f;
@@ -36,7 +39,9 @@ public class Shark : MonoBehaviour
         rb = this.GetComponent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
 
-        
+        minSpeed = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().PlayerSpeed + 1;
+
+        speedRespawn = speed;
     }
 
     // Start is called before the first frame update
@@ -87,9 +92,10 @@ public class Shark : MonoBehaviour
         //{
         //   // Vector2 direction = (Vector2)_player.position - rb.position;
 
-        //   //// direction.Normalize();  // Pas n�cessaire 
+        //   //// direction.Normalize();  // Pas nécessaire 
 
         //   // float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
 
         //   // rb.angularVelocity = rotateSpeed * -rotateAmount;
         //   // rb.velocity = transform.up * speed;
@@ -99,6 +105,7 @@ public class Shark : MonoBehaviour
         //   //     StartCoroutine(AugmentSpeed(0.5f));
         //   // }
         //}
+
 
 
 
@@ -135,19 +142,65 @@ public class Shark : MonoBehaviour
     //    isSpeeding = true;
     //    yield return new WaitForSeconds(time);
 
-    //    float speedtemp = speed;
-    //    if(speed < 13f)
-    //    {
-    //        speed = speed + GameController.DifficultyMultiplier;
-    //    }
-       
-    //    //Debug.Log("Speed of ennemy" + speed);
-    //    isSpeeding = false;
-    //}
+
+        float speedtemp = speed;
+        if (speed < maxSpeed)
+        {
+            speed = speed + GameController.DifficultyMultiplier;
+        }
+
+        //Debug.Log("Speed of ennemy" + speed);
+        isSpeeding = false;
+    }
+
 
     public void Reset()
     {
-        speed = 2f;
+        this.speed = speedRespawn;
+    }
+
+    public void Arrive() // Implementation of Arrive behviour 
+    {
+        if (!GameController.GamePaused)
+        {
+            Vector2 direction = (Vector2)_player.position - rb.position;
+
+            float distance = Vector2.Distance((Vector2)_player.position, rb.position);
+
+            rb.AddForce(direction);
+
+            float rotateAmount = Vector3.Cross(direction, transform.up).z;
+
+            rb.angularVelocity = rotateSpeed * -rotateAmount;
+            Debug.Log("Shark speed + " + speed);
+
+            //if (isSpeeding == false)
+            //{
+            //    StartCoroutine(AugmentSpeed(0.5f));
+            //}
+
+
+            if (distance < radius) // Quand le requin arrive dans le rayon 'radius' du joueur qu'on définie
+            {
+                
+                float desiredSpeed =Mathf.Clamp(speed / distance, minSpeed , maxSpeed); //(maxSpeed * distance, 0, maxSpeed)->formule buggé
+
+                rb.velocity = transform.up * desiredSpeed ;
+                //Debug.Log("  desiredSpeed : " + desiredSpeed + "velocity " + rb.velocity);
+
+            }
+            else
+            {
+                if(speed < maxSpeed)
+                {
+                    speed = maxSpeed;
+                }
+                rb.velocity = transform.up * speed;
+                
+                //Debug.Log("OUT   distavce : "  + distance + " maxSpeed : " + maxSpeed + " VELOCITY : " + rb.velocity);
+                //Debug.Log("  speed : " + speed + "velocity "  + rb.velocity);
+            }
+        }
     }
 
     public void Arrive() // Implementation of Arrive behviour 
@@ -165,7 +218,7 @@ public class Shark : MonoBehaviour
             rb.angularVelocity = rotateSpeed * -rotateAmount;
 
 
-            if (distance < radius) // Quand le requin arrive dans le rayon 'radius' du joueur qu'on d�finie
+            if (distance < radius) // Quand le requin arrive dans le rayon 'radius' du joueur qu'on définie
             {
                 
                 float desiredSpeed =Mathf.Clamp( maxSpeed * distance, 0, maxSpeed);

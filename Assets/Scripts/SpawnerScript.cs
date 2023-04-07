@@ -88,10 +88,13 @@ public class SpawnerScript : MonoBehaviour
 
     private IEnumerator SpawnObject(string type, float time)
     {
-        yield return new WaitForSeconds(time);
-        ObjectPooler.instance.SpawnFromPool(type, spawnerPos.transform.position, Quaternion.identity );  // selon la taille des bordures de notre jeu
-        spawningObject = false;
-        GameController.EnnemyCount++;
+        
+            yield return new WaitForSeconds(time);
+            ObjectPooler.instance.SpawnFromPool(type, spawnerPos.transform.position, Quaternion.identity);  // selon la taille des bordures de notre jeu
+            spawningObject = false;
+            GameController.EnnemyCount++;
+       
+            
     }
 
     void Update()
@@ -109,8 +112,13 @@ public class SpawnerScript : MonoBehaviour
                 cumulativeWeight += ennemySpawnables[chosenIndex].weight;
             }
             Debug.Log("Cumulitive weight " + cumulativeWeight);
+
             StartCoroutine(SpawnObject(ennemySpawnables[chosenIndex].type, Random.Range(spawnSettings[0].minWait / GameController.DifficultyMultiplier, spawnSettings[0].maxWait / GameController.DifficultyMultiplier)));
+
         }
+        
+           
+        
 
         //Debug.Log("Time spawn " + spawnSettings[0].maxWait / GameController.DifficultyMultiplier);
         
